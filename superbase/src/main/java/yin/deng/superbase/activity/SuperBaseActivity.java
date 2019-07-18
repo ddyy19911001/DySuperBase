@@ -11,9 +11,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,10 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.tools.PictureFileUtils;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -194,50 +191,6 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Net
         builder.create().show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频选择回调
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    MediaListInfo listInfo = new MediaListInfo();
-                    if (selectList != null) {
-                        listInfo.getMedias().addAll(selectList);
-                    }
-                    listInfo.setRequestCode(PictureConfig.CHOOSE_REQUEST);
-                    if (onMediaListInfoGetListener != null) {
-                        onMediaListInfoGetListener.OnMediaInfoGet(listInfo);
-                    }
-                    break;
-                case PictureConfig.REQUEST_CAMERA:
-                    // 图片、视频拍摄回调
-                    List<LocalMedia> cselectList = PictureSelector.obtainMultipleResult(data);
-                    MediaListInfo listInfo2 = new MediaListInfo();
-                    if (cselectList != null) {
-                        listInfo2.getMedias().addAll(cselectList);
-                    }
-                    listInfo2.setRequestCode(PictureConfig.REQUEST_CAMERA);
-                    if (onMediaListInfoGetListener != null) {
-                        onMediaListInfoGetListener.OnMediaInfoGet(listInfo2);
-                    }
-                    break;
-            }
-        }
-    }
-
-    OnMediaListInfoGetListener onMediaListInfoGetListener;
-
-    public void setOnMediaListInfoGetListener(OnMediaListInfoGetListener onMediaListInfoGetListener) {
-        this.onMediaListInfoGetListener = onMediaListInfoGetListener;
-    }
-
-    public interface OnMediaListInfoGetListener {
-        void OnMediaInfoGet(MediaListInfo listInfo);
-    }
-
-
 
     /**
      * 设置状态栏背景及字体颜色
@@ -318,8 +271,6 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Net
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(netChangeReceiver);
-        //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
-        PictureFileUtils.deleteCacheDirFile(this);
     }
 
 
