@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="normal_gray">#6A6A6A</color>
+    <color name="normal_green">#24B040</color>
+    <color name="normal_bg">#F5F5F5</color>
+    <color name="normal_4a">#4A4A4A</color>
+    <color name="normal_9b">#2B292B</color>
+    <color name="normal_c">#EEEEEE</color>
+    <color name="normal_d">#DDDDDD</color>
+    <color name="normal_fa">#FAFAFA</color>
+    <color name="name_pink_click">#aa5F57</color>
+    <color name="normal_green_click">#248040</color>
+    <color name="half_trans">#80000000</color>
+    <color name="two_96">#969696</color>
+    <color name="select_no">#FFFFFF</color>
+    <color name="select_color">#FF2187FF</color>
+
+</resources>
