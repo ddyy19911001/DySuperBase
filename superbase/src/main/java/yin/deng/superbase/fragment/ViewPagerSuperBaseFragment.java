@@ -138,7 +138,9 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
      * @param isVisible true  不可见 -&gt; 可见
      *                  false 可见  -&gt; 不可见
      */
-    protected abstract void onFragmentVisibleChange(boolean isVisible);
+    protected void onFragmentVisibleChange(boolean isVisible){
+
+    }
 
     /**
      * 在fragment首次可见时回调，可在这里进行加载数据，保证只在第一次打开Fragment时才会加载数据，
@@ -147,7 +149,9 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
      * 然后在该方法内将状态设置为下载状态，接着去执行下载的任务
      * 最后在 onFragmentVisibleChange() 里根据数据下载状态来控制下载进度ui控件的显示与隐藏
      */
-    protected abstract void onFragmentFirstVisible();
+    protected  void onFragmentFirstVisible(){
+        init();
+    }
 
 
     protected boolean isFragmentVisible() {
@@ -161,7 +165,6 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
     }
 
 
