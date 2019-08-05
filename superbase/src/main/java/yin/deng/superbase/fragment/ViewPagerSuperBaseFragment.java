@@ -95,6 +95,7 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
                 onFragmentVisibleChange(true);
                 isFragmentVisible = true;
             }
+            init();
         }
         super.onViewCreated(isReuseView ? rootView : view, savedInstanceState);
     }
@@ -150,7 +151,7 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
      * 最后在 onFragmentVisibleChange() 里根据数据下载状态来控制下载进度ui控件的显示与隐藏
      */
     protected  void onFragmentFirstVisible(){
-        init();
+
     }
 
 
