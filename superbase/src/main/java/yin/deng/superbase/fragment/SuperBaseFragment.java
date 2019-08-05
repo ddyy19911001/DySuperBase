@@ -30,8 +30,8 @@ public abstract class SuperBaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Res=setContentView();
         View view = inflater.inflate(Res, container, false);
-        bindViewWithId(view);
         this.view=view;
+        bindViewWithId(view);
         return view;
     }
 
