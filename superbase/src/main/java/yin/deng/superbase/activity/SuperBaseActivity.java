@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import me.jessyan.autosize.internal.CustomAdapt;
 import yin.deng.superbase.R;
 import yin.deng.superbase.activity.permission.PermissionListener;
 import yin.deng.superbase.activity.permission.PermissionPageUtils;
@@ -39,11 +40,22 @@ import yin.deng.superbase.activity.permission.PermissionPageUtils;
  * Created by Administrator on 2018/4/12.
  * deng yin
  */
-public abstract class SuperBaseActivity extends AppCompatActivity implements NetStateReceiver.OnNetStateChangeListener, PermissionListener {
+public abstract class SuperBaseActivity extends AppCompatActivity implements CustomAdapt, NetStateReceiver.OnNetStateChangeListener, PermissionListener {
     private Dialog loadingDialog;
     private boolean isMainActivity;
     private NetStateReceiver netChangeReceiver;
     private ToastUtil toast;
+
+    //1080的
+    @Override
+    public boolean isBaseOnWidth() {
+        return true;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 524;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
