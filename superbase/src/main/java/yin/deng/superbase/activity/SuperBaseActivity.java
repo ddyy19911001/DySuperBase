@@ -26,9 +26,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
-import com.zhy.autolayout.AutoLayoutActivity;
-import com.zhy.autolayout.config.AutoLayoutConifg;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +39,7 @@ import yin.deng.superbase.activity.permission.PermissionPageUtils;
  * Created by Administrator on 2018/4/12.
  * deng yin
  */
-public abstract class SuperBaseActivity extends AutoLayoutActivity implements NetStateReceiver.OnNetStateChangeListener, PermissionListener {
+public abstract class SuperBaseActivity extends AppCompatActivity implements NetStateReceiver.OnNetStateChangeListener, PermissionListener {
     private Dialog loadingDialog;
     private boolean isMainActivity;
     private NetStateReceiver netChangeReceiver;
@@ -50,10 +47,6 @@ public abstract class SuperBaseActivity extends AutoLayoutActivity implements Ne
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的
-        if(useDeviceSize()){
-            AutoLayoutConifg.getInstance().useDeviceSize();
-        }
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
         //将所有activity列入activity管理器中方便退出时清理
@@ -70,15 +63,6 @@ public abstract class SuperBaseActivity extends AutoLayoutActivity implements Ne
 
     public void bindViewWithId() {
 
-    }
-
-
-    /**
-     * 是否使用设备绝对尺寸
-     * @return
-     */
-    public boolean useDeviceSize(){
-        return false;
     }
 
 
