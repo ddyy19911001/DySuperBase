@@ -40,11 +40,13 @@ import yin.deng.superbase.activity.permission.PermissionPageUtils;
  * Created by Administrator on 2018/4/12.
  * deng yin
  */
-public abstract class SuperBaseActivity extends AppCompatActivity implements CustomAdapt, NetStateReceiver.OnNetStateChangeListener, PermissionListener {
+public abstract class SuperBaseActivity extends AppCompatActivity implements CustomAdapt, NetStateReceiver.OnNetStateChangeListener{
     private Dialog loadingDialog;
     private boolean isMainActivity;
     private NetStateReceiver netChangeReceiver;
     private ToastUtil toast;
+    private PermissionListener permissionListener;
+    public static final int permissionsRequestCode=2103;
 
     //1080的
     @Override
@@ -86,7 +88,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
      *            申请结果监听事件
      */
     protected void requestRunTimePermission(String[] permissions,
-                                            SuperBaseActivity listener) {
+                                            PermissionListener listener) {
         PackageManager pkm = getPackageManager();
         // 用于存放为授权的权限
         List<String> permissionList = new ArrayList<>();
@@ -109,9 +111,11 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
         if (!permissionList.isEmpty()) { // 如果集合不为空，则需要去授权
             ActivityCompat.requestPermissions(this,
                     permissionList.toArray(new String[permissionList.size()]),
-                    1);
+                    permissionsRequestCode);
         } else { // 为空，则已经全部授权
-            listener.onGranted();
+            if(permissionListener!=null) {
+                listener.onGranted();
+            }
         }
     }
 
@@ -130,7 +134,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
                                            String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case 1:
+            case permissionsRequestCode:
                 if (grantResults.length > 0) {
                     // 被用户拒绝的权限集合
                     List<String> deniedPermissions = new ArrayList<>();
@@ -150,12 +154,17 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
                     }
 
                     if (deniedPermissions.isEmpty()) { // 用户拒绝权限为空
-                        onGranted();
+                        if(permissionListener!=null){
+                            permissionListener.onGranted();
+                        }
                     } else { // 不为空
                         // 回调授权成功的接口
-                        onDenied(deniedPermissions);
-                        // 回调授权失败的接口
-                        onGranted(grantedPermissions);
+                        if(permissionListener!=null){
+                            //用户拒绝的部分权限
+                            permissionListener.onDenied(deniedPermissions);
+                            //用户同意的部分权限
+                            permissionListener.onGranted(grantedPermissions);
+                        }
                     }
                 }
                 break;
@@ -164,44 +173,6 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
         }
     }
 
-    //已经全部授权成功
-    @Override
-    public void onGranted() {
-
-    }
-
-    //已经授权成功的一些权限
-    @Override
-    public void onGranted(List<String> grantedPermission) {
-
-    }
-
-    //没有授权成功的一些权限
-    @Override
-    public void onDenied(List<String> deniedPermission) {
-        for(int i=0;i<deniedPermission.size();i++){
-            LogUtils.e("失败授权的有："+deniedPermission.get(i).toString());
-        }
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("权限提示");
-        builder.setMessage("为了更好的为您服务，请授予应用" + deniedPermission.get(0) + "权限");
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showTs("获取权限失败");
-            }
-        });
-        builder.setPositiveButton("去开启", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PermissionPageUtils utils = new PermissionPageUtils(SuperBaseActivity.this);
-                utils.jumpPermissionPage();
-            }
-        });
-        builder.create().show();
-    }
 
 
     /**
