@@ -60,7 +60,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
         //将所有activity列入activity管理器中方便退出时清理
@@ -87,7 +87,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
      * @param listener
      *            申请结果监听事件
      */
-    protected void requestRunTimePermission(String[] permissions,
+    public void requestRunTimePermission(String[] permissions,
                                             PermissionListener listener) {
         PackageManager pkm = getPackageManager();
         // 用于存放为授权的权限
@@ -226,7 +226,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
     }
 
 
-    protected boolean setIsExitActivity() {
+    public boolean setIsExitActivity() {
         return false;
     }
 
@@ -243,7 +243,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
 
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
     }
 
@@ -251,25 +251,25 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(netChangeReceiver);
     }
 
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
     }
 
     @Override
-    protected void onRestart() {
+    public void onRestart() {
         super.onRestart();
     }
 
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
     }
 
@@ -277,7 +277,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
 
     public abstract int setLayout();
 
-    protected abstract void initFirst();
+    public abstract void initFirst();
 
 
 
