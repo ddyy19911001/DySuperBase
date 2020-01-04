@@ -56,7 +56,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
 
     @Override
     public float getSizeInDp() {
-        return 524;
+        return 415;
     }
 
     @Override

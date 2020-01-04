@@ -6,6 +6,7 @@ import java.util.List;
 
 import yin.deng.superbase.activity.LogUtils;
 import yin.deng.superbase.activity.SuperBaseActivity;
+import yin.deng.superbase.activity.permission.PermissionListener;
 
 public class MainActivity extends SuperBaseActivity {
     @Override
@@ -14,21 +15,28 @@ public class MainActivity extends SuperBaseActivity {
     }
 
     @Override
-    protected void initFirst() {
-        requestRunTimePermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},this);
+    public void initFirst() {
+        showTs("测试屏幕啊啊啊啊");
+        requestRunTimePermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, new PermissionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onGranted(List<String> grantedPermission) {
+
+            }
+
+            @Override
+            public void onDenied(List<String> deniedPermission) {
+
+            }
+        });
     }
 
-    @Override
-    public void onDenied(List<String> deniedPermission) {
-        super.onDenied(deniedPermission);
-        LogUtils.d("权限被拒绝");
-    }
 
-    @Override
-    public void onGranted() {
-        super.onGranted();
-        LogUtils.d("权限申请成功");
-    }
+
 
 
 }
