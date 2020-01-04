@@ -41,11 +41,11 @@ import yin.deng.superbase.activity.permission.PermissionPageUtils;
  * deng yin
  */
 public abstract class SuperBaseActivity extends AppCompatActivity implements CustomAdapt, NetStateReceiver.OnNetStateChangeListener{
-    private Dialog loadingDialog;
-    private boolean isMainActivity;
-    private NetStateReceiver netChangeReceiver;
-    private ToastUtil toast;
-    private PermissionListener permissionListener;
+    public Dialog loadingDialog;
+    public boolean isMainActivity;
+    public NetStateReceiver netChangeReceiver;
+    public ToastUtil toast;
+    public PermissionListener permissionListener;
     public static final int permissionsRequestCode=2103;
 
     //1080的
@@ -61,20 +61,87 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        onNotcreate();
         super.onCreate(savedInstanceState);
+        onNotSetContentView();
         setContentView(setLayout());
+        onNotAddActivity();
         //将所有activity列入activity管理器中方便退出时清理
         AppActivityListManager.getScreenManager().addActivity(this);
+        onNotBindView();
         bindViewWithId();
+        onNotSetStatusBar();
         //去除小米手机白色状态栏
         StatuBarUtils.setStatusBarTranslucent(this,true);
+        onNotSetNetWorkListener();
         initNetWork();
         //设置状态栏
         setStatusStyle(Color.WHITE);
         isMainActivity = setIsExitActivity();
+        onNotInitFirst();
         initFirst();
+        onInitFirstOver();
     }
 
+    /**
+     * 其他逻辑全部走完
+     */
+    public void onInitFirstOver() {
+
+    }
+
+    /**
+     * 其他逻辑还没有开始
+     */
+    public void onNotInitFirst() {
+
+    }
+
+    /**
+     * 还没有设置网络状态监听
+     */
+    public void onNotSetNetWorkListener() {
+
+    }
+
+    /**
+     * 还没有设置状态栏
+     */
+    public void onNotSetStatusBar() {
+
+    }
+
+    /**
+     * 还没有开始添加activity到管理器里面
+     */
+    public void onNotAddActivity() {
+
+    }
+
+    /**
+     * 还没有绑定ViewId
+     */
+    public void onNotBindView() {
+
+    }
+
+    /**
+     * 还没有开始设置布局
+     */
+    public void onNotSetContentView(){
+
+    }
+
+    /**
+     * 还没有开始Create
+     */
+    public void onNotcreate() {
+
+    }
+
+    /**
+     * 绑定ViewId
+     */
     public void bindViewWithId() {
 
     }
@@ -89,6 +156,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
      */
     public void requestRunTimePermission(String[] permissions,
                                             PermissionListener listener) {
+        permissionListener=listener;
         PackageManager pkm = getPackageManager();
         // 用于存放为授权的权限
         List<String> permissionList = new ArrayList<>();
@@ -114,7 +182,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
                     permissionsRequestCode);
         } else { // 为空，则已经全部授权
             if(permissionListener!=null) {
-                listener.onGranted();
+                permissionListener.onGranted();
             }
         }
     }
@@ -190,7 +258,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
     }
 
 
-    private void initNetWork() {
+    public void initNetWork() {
         IntentFilter intentFilter = new IntentFilter();
         //当前网络发生变化后，系统会发出一条值为android.net.conn.CONNECTIVITY_CHANGE的广播，所以要监听它
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
