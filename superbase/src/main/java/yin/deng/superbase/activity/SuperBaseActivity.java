@@ -47,7 +47,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
     public ToastUtil toast;
     public PermissionListener permissionListener;
     public static final int permissionsRequestCode=2103;
-
+    public SuperBaseActivity mActivity;
     //1080的
     @Override
     public boolean isBaseOnWidth() {
@@ -63,6 +63,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
     public void onCreate(Bundle savedInstanceState) {
         onNotcreate();
         super.onCreate(savedInstanceState);
+        mActivity=this;
         onNotSetContentView();
         setContentView(setLayout());
         onNotAddActivity();
@@ -254,6 +255,34 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
             getWindow().setStatusBarColor(statusColorRes);
             // 设置状态栏字体黑色
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    /**
+     * 设置状态栏透明，状态栏文字为黑色
+     */
+    public void setStatusTranslentStyleLight() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 设置状态栏底色白色
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.trans));
+            // 设置状态栏字体黑色
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    /**
+     * 设置状态栏透明，状态栏文字为白色
+     */
+    public void setStatusTranslentStyleBlack() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 设置状态栏底色白色
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.trans));
+            // 设置状态栏字体黑色
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
     }
 

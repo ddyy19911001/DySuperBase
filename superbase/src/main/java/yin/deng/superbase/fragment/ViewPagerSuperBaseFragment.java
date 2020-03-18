@@ -1,5 +1,6 @@
 package yin.deng.superbase.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import yin.deng.superbase.activity.ToastUtil;
  * 这个fragment是android.V4中的fragment不是android.app包里面的Fragment
  */
 public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
+    public Activity mActivity;
     private static final String TAG = ViewPagerSuperBaseFragment.class.getSimpleName();
     private boolean isFragmentVisible;
     private boolean isReuseView;
@@ -77,6 +79,7 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity=getActivity();
         initVariable();
     }
 
@@ -166,6 +169,7 @@ public abstract class ViewPagerSuperBaseFragment<T> extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mActivity=getActivity();
     }
 
 

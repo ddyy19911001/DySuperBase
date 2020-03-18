@@ -7,6 +7,8 @@ import android.content.Intent;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import yin.deng.superbase.R;
+
 /**
  * 主要功能：App应用退出
  * @Prject: CommonUtilLibrary
@@ -20,7 +22,6 @@ import java.util.TimerTask;
 public class AppExit2Back {
 
 
-	private static final String EXIT_STRING = "再次点击退出应用";
 	private static Boolean isExit = false;
 
 	/**
@@ -33,7 +34,7 @@ public class AppExit2Back {
 	    if (isExit == false) {
 	        isExit = true;
 	        //信息提示
-			new ToastUtil(context,EXIT_STRING).show();
+			new ToastUtil(context,context.getResources().getString(R.string.exit_twice_tips)).show();
 	        //创建定时器
 	        tExit = new Timer();
 	        //如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
