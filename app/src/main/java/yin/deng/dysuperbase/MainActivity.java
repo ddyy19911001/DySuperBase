@@ -1,14 +1,24 @@
 package yin.deng.dysuperbase;
 
-import android.Manifest;
+import android.widget.FrameLayout;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import yin.deng.superbase.activity.LogUtils;
 import yin.deng.superbase.activity.SuperBaseActivity;
-import yin.deng.superbase.activity.permission.PermissionListener;
+import yin.deng.superbase.fragment.BasePagerAdapter;
 
 public class MainActivity extends SuperBaseActivity {
+    private FrameLayout fg;
+    @Override
+    public void bindViewWithId() {
+        fg = (FrameLayout) findViewById(R.id.fg);
+
+    }
+
     @Override
     public int setLayout() {
         return R.layout.activity_main;
@@ -16,28 +26,8 @@ public class MainActivity extends SuperBaseActivity {
 
     @Override
     public void initFirst() {
-        showTs("测试屏幕啊啊啊啊");
-        requestRunTimePermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, new PermissionListener() {
-            @Override
-            public void onGranted() {
-
-            }
-
-            @Override
-            public void onGranted(List<String> grantedPermission) {
-
-            }
-
-            @Override
-            public void onDenied(List<String> deniedPermission) {
-
-            }
-        });
+        MainFragment fragment=new MainFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fg, fragment).commit();
     }
-
-
-
-
-
 }
 

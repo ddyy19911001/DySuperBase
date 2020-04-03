@@ -2,9 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
-        android:id="@+id/fg"
+    <TextView
+        android:id="@+id/tv_text"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="36dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="我是测试前数据"
         />
 </LinearLayout>
