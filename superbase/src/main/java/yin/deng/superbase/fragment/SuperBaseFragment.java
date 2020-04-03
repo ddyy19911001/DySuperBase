@@ -62,6 +62,7 @@ public abstract class SuperBaseFragment extends Fragment {
         if (!mHaveLoadData && isVisibleToUser) {
             loadDataFirst();
             mHaveLoadData = true;
+            return;
         }
         if(isNeedRefreshAllTime()&&mHaveLoadData&&isVisibleToUser){
             refreshData();
@@ -90,7 +91,7 @@ public abstract class SuperBaseFragment extends Fragment {
     /**
      * 首次加载数据，此时还未绑定控件id
      */
-    public   void loadDataFirst(){
+    public  void loadDataFirst(){
 
     }
 
