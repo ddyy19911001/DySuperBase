@@ -46,4 +46,15 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FF00AAEE</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
+        <item name="colorAccent">#FF00AAEE</item>
+        <!--允许启用窗口内容转换效果-->
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:activityOpenEnterAnimation">@anim/new_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/new_to_right</item>
+    </style>
+
 </resources>

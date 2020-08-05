@@ -327,16 +327,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
         return false;
     }
 
-    /**
-     * 重写onBackPressed监听返回，统一设置了返回动画
-     */
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (!isMainActivity) {
-            overridePendingTransition(R.anim.new_to_right, R.anim.old_to_right);
-        }
-    }
+
 
 
     @Override
@@ -378,14 +369,7 @@ public abstract class SuperBaseActivity extends AppCompatActivity implements Cus
 
 
 
-    /**
-     * 重写startActivity，统一设置启动Activity的动画
-     */
-    @Override
-    public void startActivity(Intent intent) {
-        super.startActivity(intent);
-        overridePendingTransition(R.anim.new_to_left, R.anim.old_to_left);
-    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
